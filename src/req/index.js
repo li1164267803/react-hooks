@@ -1,0 +1,40 @@
+import axios from 'axios'
+import {Toast} from 'antd-mobile';
+import {HashRouter} from "react-router-dom"
+import {standardConfig, serializeConfig} from './config'
+
+// const get = (url, params) => axios.get(url, {params, ...standardConfig})
+// const post = (url, data, isForm) => axios.post(url, data, isForm ? serializeConfig : standardConfig)
+class API {
+  login(params) {
+    return  axios.post('/api/auth/login/v1/password', params, standardConfig)
+  }
+}
+
+axios.interceptors.request.use(
+  config => {
+      localStorage.token && (config.headers['authorization'] = 'authorization' + localStorage.token)
+      return config
+  },
+  err => Promise.reject(err)
+)
+
+const router = new HashRouter(), redirectCodes = [90000, 91000, 91001, 91002]
+
+axios.interceptors.response.use(
+  res => {
+    const {data: {code, data, message}} = res;
+    if(code !== 200) {
+      Toast.info(message);
+      if(redirectCodes.includes(code)) {
+        localStorage.clear()
+        router.history.push('/login')
+      }
+      return Promise.reject(res)
+    }
+    return Promise.resolve(data)
+  },
+  err => Promise.reject(err)
+)
+
+export default API

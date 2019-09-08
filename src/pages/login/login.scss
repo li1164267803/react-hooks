@@ -1,0 +1,41 @@
+.login {
+  padding: 40px;
+  background-color: #fff;
+  .title {
+    width: 212px;
+    height: 61px;
+    position: relative;
+    margin: 60px auto 80px;
+    img {
+      width: 212px;
+      height: 61px;
+    }
+    div {
+      left: 50%;
+      top: 16px;
+      width: 151px;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      position: absolute;
+      color: rgba(119, 119, 119, 1);
+      transform: translateX(-50%);
+    }
+  }
+  .am-list-item.am-input-item {
+    padding-left: 0;
+  }
+  .phone {
+    margin-bottom: 40px;
+  }
+  .password {
+    margin-bottom: 70px;
+  }
+  .am-button {
+    height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 1);
+    background: rgba(10, 203, 162, 1);
+  }
+}
