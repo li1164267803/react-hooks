@@ -1,13 +1,25 @@
 import axios from 'axios'
 import {Toast} from 'antd-mobile';
 import {HashRouter} from "react-router-dom"
-import {standardConfig, serializeConfig} from './config'
+// import {standardConfig, serializeConfig} from './config'
+import {standardConfig} from './config'
 
 // const get = (url, params) => axios.get(url, {params, ...standardConfig})
 // const post = (url, data, isForm) => axios.post(url, data, isForm ? serializeConfig : standardConfig)
 class API {
   login(params) {
     return  axios.post('/api/auth/login/v1/password', params, standardConfig)
+  }
+
+  // ----------------------------------- GET ---------------------------------------------
+  // 获取省市的列表
+  getCityList() {
+    return axios.get('/api/amc/v1/com/province/city/list')
+  }
+
+  // 获取代理信息列表
+  getAgentAetail(cityCode) {
+    return axios.get(`/api/amc/v1/manage/${cityCode}/agent/detail`)
   }
 }
 
