@@ -20,14 +20,19 @@ import {post} from './config'
 //     return res;
 // }
 class API {
-  login(params) { // 函数颗粒化
-    return post('/api/auth/login/v1/password', params, false, data => {
+  login(params) {
+    return post('/api/auth/login/v1/password', data => { // 函数颗粒化
       // 可以二次处理请求回来的数据
       console.log(555555555);
       return data
     })
-    // return post('/api/auth/login/v1/password', params,standardConfig) // 不做数据的处理
-
+    
+    // return post('/api/auth/login/v1/password', params, false, data => {
+    //   // 可以二次处理请求回来的数据
+    //   console.log(555555555);
+    //   return data
+    // })
+    
     // return  axios.post('/api/auth/login/v1/password', params, standardConfig) // 正常请求
   }
 

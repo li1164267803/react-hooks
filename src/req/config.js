@@ -11,16 +11,30 @@ const client_info = {
   deviceSysVersion: '1.0.0'
 };
 
-const post = (url, params, isForm, interceptor) => {
-  const res = axios.post(url, params, isForm ? serializeConfig : standardConfig);
-  if (interceptor) return res.then(interceptor) // 简写
-  // if(interceptor) {
-  //   return res.then(v => {
-  //     console.log('v',v);
-  //     return interceptor(v)
-  //   })
-  // }
-  return res;
+// const post = (url, params, isForm, interceptor) => {
+//   // 页面调用方法 => 
+//   // const res = await api.login({phone: phoneTrim, password})
+
+//   const res = axios.post(url, params, isForm ? serializeConfig : standardConfig);
+//   if (interceptor) return res.then(interceptor) // 简写
+//   // if(interceptor) {
+//   //   return res.then(v => {
+//   //     console.log('v',v);
+//   //     return interceptor(v)
+//   //   })
+//   // }
+//   return res;
+// }
+
+const post = (url, interceptor) => { // 颗粒化函数 
+  // 颗粒化函数 => 页面调用的方法
+  // const res = await api.login()({phone: phoneTrim, password})
+
+  return function (data, isForm) {
+    const res = axios.post(url, data, isForm ? serializeConfig : standardConfig);
+    if (interceptor) return res.then(interceptor) // 简写
+    return res;
+  }
 }
 
 const standardConfig = {
