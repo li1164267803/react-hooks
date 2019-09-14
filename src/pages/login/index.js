@@ -16,7 +16,6 @@ export default function Login(props) {
     if (phoneTrim.length < 11 || !reg.test(phoneTrim)) return Toast.info('手机号格式不正确')
     if (!password) return Toast.info('密码不能为空');
     const res = await api.login({phone: phoneTrim, password})
-    console.log("TCL: login -> res", res)
     localStorage.token = res.token;
     props.history.push('/query')
   }

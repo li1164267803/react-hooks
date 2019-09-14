@@ -6,9 +6,27 @@ import {standardConfig} from './config'
 
 // const get = (url, params) => axios.get(url, {params, ...standardConfig})
 // const post = (url, data, isForm) => axios.post(url, data, isForm ? serializeConfig : standardConfig)
+function post(url, params, config, interceptor) {
+    const res = axios.post(url, params, config);
+    if (interceptor) return res.then(interceptor) // 简写
+    // if(interceptor) {
+    //   return res.then(v => {
+    //     console.log('v',v);
+    //     return interceptor(v)
+    //   })
+    // }
+    return res;
+}
 class API {
-  login(params) {
-    return  axios.post('/api/auth/login/v1/password', params, standardConfig)
+  login(params) { // 函数颗粒化
+    return post('/api/auth/login/v1/password', params,standardConfig, data => {
+      // 可以二次处理请求回来的数据
+      console.log(555555555);
+      return data
+    })
+    // return post('/api/auth/login/v1/password', params,standardConfig) // 不做数据的处理
+
+    // return  axios.post('/api/auth/login/v1/password', params, standardConfig) // 正常请求
   }
 
   // ----------------------------------- GET ---------------------------------------------
