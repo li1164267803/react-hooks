@@ -1,4 +1,5 @@
 import Qs from 'qs'
+import axios from 'axios'
 
 const client_info = {
   clientType: 6,
@@ -9,6 +10,18 @@ const client_info = {
   appVersion: '1.0.0',
   deviceSysVersion: '1.0.0'
 };
+
+const post = (url, params, isForm, interceptor) => {
+  const res = axios.post(url, params, isForm ? serializeConfig : standardConfig);
+  if (interceptor) return res.then(interceptor) // 简写
+  // if(interceptor) {
+  //   return res.then(v => {
+  //     console.log('v',v);
+  //     return interceptor(v)
+  //   })
+  // }
+  return res;
+}
 
 const standardConfig = {
   timeout: 30000,
@@ -33,4 +46,4 @@ const serializeConfig = {
   responseType: 'json',
 }
 
-export {standardConfig, serializeConfig}
+export {post, standardConfig, serializeConfig}

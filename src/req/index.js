@@ -2,24 +2,26 @@ import axios from 'axios'
 import {Toast} from 'antd-mobile';
 import {HashRouter} from "react-router-dom"
 // import {standardConfig, serializeConfig} from './config'
-import {standardConfig} from './config'
+import {post} from './config'
+
 
 // const get = (url, params) => axios.get(url, {params, ...standardConfig})
 // const post = (url, data, isForm) => axios.post(url, data, isForm ? serializeConfig : standardConfig)
-function post(url, params, config, interceptor) {
-    const res = axios.post(url, params, config);
-    if (interceptor) return res.then(interceptor) // 简写
-    // if(interceptor) {
-    //   return res.then(v => {
-    //     console.log('v',v);
-    //     return interceptor(v)
-    //   })
-    // }
-    return res;
-}
+
+// function post(url, params, config, interceptor) {
+//     const res = axios.post(url, params, config);
+//     if (interceptor) return res.then(interceptor) // 简写
+//     // if(interceptor) {
+//     //   return res.then(v => {
+//     //     console.log('v',v);
+//     //     return interceptor(v)
+//     //   })
+//     // }
+//     return res;
+// }
 class API {
   login(params) { // 函数颗粒化
-    return post('/api/auth/login/v1/password', params,standardConfig, data => {
+    return post('/api/auth/login/v1/password', params, false, data => {
       // 可以二次处理请求回来的数据
       console.log(555555555);
       return data
